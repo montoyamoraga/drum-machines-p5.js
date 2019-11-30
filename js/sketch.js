@@ -8,8 +8,7 @@ let stepCurrent = 0;
 const stepNumber = 16;
 
 // drawing variables and constants
-const levelNumbers = 12;
-const levelDiameter = 18;
+const instrumentKnobsDiameter = 18;
 const widthLarge = 1200;
 const heightLarge = 720;
 
@@ -32,7 +31,7 @@ let colorPanelGray;
 let colorKnobRed;
 let colorKnobWhite;
 
-const knobsRows = [
+const instrumentKnobsRows = [
     ["LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL"],
     ["-", "TONE", "TONE", "TUNING", "TUNING", "TUNING", "-", "-", "-", "TONE", "-", "-"],
     ["-", "DECAY", "SNAPPY", "SWITCH", "SWITCH", "SWITCH", "SWITCH", "SWITCH", "-", "DECAY", "DECAY", "-"]
@@ -46,21 +45,7 @@ function setup() {
 
     setupColors();
 
-    // black square for instrument
     drawMainPanel();
-
-    // level knobs
-    push();
-    for (let i = 0; i < levelNumbers; i++) {
-        // red ellipse
-        fill(colorKnobRed);
-        ellipse((30 + (i + 0.5) * 65 / 12) * width / 100, 25 * height / 100, levelDiameter, levelDiameter);
-        // white text
-        fill(255, 255, 255);
-        textSize(8);
-        text("LEVEL", (30 + (i + 0.5) * 65 / 12) * width / 100, 23 * height / 100);
-    }
-    pop();
 
     drawLettersRed();
 
@@ -75,6 +60,8 @@ function setup() {
     drawKnobMasterVolume();
 
     drawKnobTempo();
+
+    drawInstrumentKnobs();
 
 }
 
@@ -300,5 +287,63 @@ function drawKnobTempo() {
             10 * width / 100 + 57 * cos(0.75 * PI + i * TWO_PI / 12),
             56 * height / 100 + 57 * sin(0.75 * PI + i * TWO_PI / 12));
     }
+    pop();
+}
+
+function drawInstrumentKnobs() {
+    // level knobs
+    push();
+    // 0th row - red "level" knobs
+    for (let i = 0; i < instrumentKnobsRows[0].length; i++) {
+        if (instrumentKnobsRows[0][i] != "-" && instrumentKnobsRows[0][i] != "SWITCH") {
+            fill(colorKnobRed);
+            ellipse((30 + (i + 0.5) * 65 / 12) * width / 100,
+                25 * height / 100,
+                instrumentKnobsDiameter,
+                instrumentKnobsDiameter);
+            // white text
+            fill(255, 255, 255);
+            textSize(8);
+            text(instrumentKnobsRows[0][i],
+                (30 + (i + 0.5) * 65 / 12) * width / 100,
+                23 * height / 100);
+        }
+    }
+
+    // 1th row - white "tone" and "tuning" knobs
+    for (let i = 0; i < instrumentKnobsRows[1].length; i++) {
+        if (instrumentKnobsRows[1][i] != "-" && instrumentKnobsRows[1][i] != "SWITCH") {
+            fill(colorKnobWhite);
+            ellipse((30 + (i + 0.5) * 65 / 12) * width / 100,
+                32 * height / 100,
+                instrumentKnobsDiameter,
+                instrumentKnobsDiameter);
+            // white text
+            fill(255, 255, 255);
+            textSize(8);
+            text(instrumentKnobsRows[1][i],
+                (30 + (i + 0.5) * 65 / 12) * width / 100,
+                30 * height / 100);
+        }
+    }
+
+    // 2th row - white "decay" and "snappy" knobs
+    for (let i = 0; i < instrumentKnobsRows[2].length; i++) {
+        if (instrumentKnobsRows[2][i] != "-" && instrumentKnobsRows[2][i] != "SWITCH") {
+            fill(colorKnobWhite);
+            ellipse((30 + (i + 0.5) * 65 / 12) * width / 100,
+                39 * height / 100,
+                instrumentKnobsDiameter,
+                instrumentKnobsDiameter);
+            // white text
+            fill(255, 255, 255);
+            textSize(8);
+            text(instrumentKnobsRows[2][i],
+                (30 + (i + 0.5) * 65 / 12) * width / 100,
+                37 * height / 100);
+        }
+    }
+
+
     pop();
 }
