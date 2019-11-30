@@ -373,13 +373,13 @@ function drawKnobMasterVolume() {
     textSize(7);
     text("MIN",
         90 * width / 100,
-        63 * height / 100);
+        62 * height / 100);
     text("MAX",
         94 * width / 100,
-        63 * height / 100);
+        62 * height / 100);
     text("MASTER VOLUME",
         92 * width / 100,
-        65 * height / 100);
+        64 * height / 100);
     fill(colorPanelGray);
     textSize(7);
     textAlign(CENTER);
