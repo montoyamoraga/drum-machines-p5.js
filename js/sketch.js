@@ -16,6 +16,8 @@ const instrumentSwitchHeight = 30;
 const instrumentLabelWidth = 55;
 const instrumentLabelHeight = 20;
 const instrumentLabelRadius = 4;
+const buttonStartStopWidth = 75;
+const buttonStartStopHeight = 50;
 
 const instrumentNamesShort = ["AC", "BD", "SD", "LT", "MT", "HT", "RS", "CP",
     "CB", "CY", "OH", "CH", "LC", "MC", "HC", "CL", "MA"
@@ -44,6 +46,8 @@ let colorPanelGray;
 let colorPanelYellow;
 let colorKnobRed;
 let colorKnobWhite;
+let colorKnobBlack;
+let colorButtonYellow;
 
 
 function setup() {
@@ -76,7 +80,7 @@ function setup() {
 
     drawKnobTempo();
 
-
+    drawButtonStartStop();
 
 }
 
@@ -104,6 +108,7 @@ function setupColors() {
     colorKnobRed = color(230, 80, 0);
     colorKnobWhite = color(220, 220, 220);
     colorKnobBlack = color(30, 30, 30);
+    colorButtonYellow = color(255, 255, 70);
 }
 
 function drawMainPanel() {
@@ -293,12 +298,12 @@ function drawSequencerPanel() {
     // lower left gray panel
     rect(5 * width / 100,
         68 * height / 100,
-        15 * width / 100,
+        10 * width / 100,
         27 * height / 100);
     // lower left panel under steps 1-12
-    rect(20 * width / 100,
+    rect(15 * width / 100,
         91 * height / 100,
-        52 * width / 100,
+        57 * width / 100,
         4 * height / 100);
     // lower right panel under steps 13-16
     rect(73 * width / 100,
@@ -414,5 +419,32 @@ function drawKnobTempo() {
             10 * width / 100 + 57 * cos(0.75 * PI + i * TWO_PI / 12),
             56 * height / 100 + 57 * sin(0.75 * PI + i * TWO_PI / 12));
     }
+    pop();
+}
+
+function drawButtonStartStop() {
+    push();
+    noStroke();
+    rectMode(CENTER);
+    fill(colorButtonYellow);
+    rect(10 * width / 100,
+        86 * height / 100,
+        buttonStartStopWidth,
+        buttonStartStopHeight);
+    textAlign(CENTER);
+    noStroke();
+    fill(colorTextBlack);
+    text("START",
+        10 * width / 100,
+        85 * height / 100);
+    text("STOP",
+        10 * width / 100,
+        88 * height / 100);
+    strokeWeight(1);
+    stroke(colorTextBlack);
+    line(8 * width / 100,
+        86 * height / 100,
+        12 * width / 100,
+        86 * height / 100);
     pop();
 }
