@@ -8,9 +8,11 @@ let stepCurrent = 0;
 const stepNumber = 16;
 
 // drawing variables and constants
+const widthInstrument = 1200;
+const heightInstrument = 720;
 const instrumentKnobsDiameter = 18;
-const widthLarge = 1200;
-const heightLarge = 720;
+const instrumentSwitchWidth = 20;
+const instrumentSwitchHeight = 30;
 
 const instrumentNamesShort = ["AC", "BD", "SD", "LT", "MT", "HT", "RS", "CP",
     "CB", "CY", "OH", "CH", "LC", "MC", "HC", "CL", "MA"
@@ -39,7 +41,7 @@ const instrumentKnobsRows = [
 
 function setup() {
 
-    createCanvas(widthLarge, heightLarge);
+    createCanvas(widthInstrument, heightInstrument);
 
     setupInitialSettings();
 
@@ -62,6 +64,8 @@ function setup() {
     drawKnobTempo();
 
     drawInstrumentKnobs();
+
+    drawInstrumentSwitches();
 
 }
 
@@ -345,5 +349,22 @@ function drawInstrumentKnobs() {
     }
 
 
+    pop();
+}
+
+function drawInstrumentSwitches() {
+    push();
+    rectMode(CENTER);
+    fill(colorKnobBlack);
+    noStroke();
+    // 2th row - black switches for selection of instruments
+    for (let i = 0; i < instrumentKnobsRows[2].length; i++) {
+        if (instrumentKnobsRows[2][i] == "SWITCH") {
+            rect((30 + (i + 0.5) * 65 / 12) * width / 100,
+                45 * height / 100,
+                instrumentSwitchWidth,
+                instrumentSwitchHeight);
+        }
+    }
     pop();
 }
