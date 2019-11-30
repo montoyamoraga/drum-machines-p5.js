@@ -18,6 +18,8 @@ const instrumentLabelHeight = 20;
 const instrumentLabelRadius = 4;
 const buttonStartStopWidth = 75;
 const buttonStartStopHeight = 50;
+const buttonTapWidth = 45;
+const buttonTapHeight = 45;
 
 const instrumentNamesShort = ["AC", "BD", "SD", "LT", "MT", "HT", "RS", "CP",
     "CB", "CY", "OH", "CH", "LC", "MC", "HC", "CL", "MA"
@@ -81,6 +83,8 @@ function setup() {
     drawKnobTempo();
 
     drawButtonStartStop();
+
+    drawButtonTap();
 
 }
 
@@ -446,5 +450,23 @@ function drawButtonStartStop() {
         86 * height / 100,
         12 * width / 100,
         86 * height / 100);
+    pop();
+}
+
+function drawButtonTap() {
+    push();
+    noStroke();
+    rectMode(CENTER);
+    fill(colorButtonYellow);
+    rect(91.5 * width / 100,
+        86 * height / 100,
+        buttonTapWidth,
+        buttonTapHeight);
+    textAlign(CENTER);
+    noStroke();
+    fill(colorTextBlack);
+    text("TAP",
+        91.5 * width / 100,
+        86.5 * height / 100);
     pop();
 }
