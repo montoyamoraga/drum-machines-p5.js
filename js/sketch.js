@@ -344,6 +344,86 @@ function drawSequencerPanel() {
             (74.5 + i * 3.7) * width / 100,
             94 * height / 100);
     }
+
+    // text "I/F - VARIATION" and "A B"
+    noStroke();
+    fill(colorTextBlack);
+    textAlign(CENTER);
+    textSize(8);
+    text("I/F - VARIATION",
+        91.5 * width / 100,
+        70.0 * height / 100);
+    text("A          B",
+        91.5 * width / 100,
+        75.0 * height / 100);
+
+    //text "INTRO SET" and "FILL IN TRIGGER";
+    noStroke();
+    fill(colorTextBlack);
+    textAlign(CENTER);
+    textSize(8);
+    text("INTRO SET",
+        91.5 * width / 100,
+        79.0 * height / 100);
+    text("FILL IN TRIGGER",
+        91.5 * width / 100,
+        81.0 * height / 100);
+    stroke(colorTextBlack);
+    strokeWeight(1);
+    line(88.5 * width / 100,
+        79.5 * height / 100,
+        94.5 * width / 100,
+        79.5 * height / 100);
+
+    // text "BASIC RHYTHM"
+    noStroke();
+    rectMode(CENTER);
+    fill(colorBackground);
+    rect(15 * width / 100,
+        93 * height / 100,
+        100,
+        20);
+    // arrow pointing right
+    rect(19.5 * width / 100,
+        93 * height / 100,
+        15,
+        7);
+    // triangle(upper left, lower left, right)
+    triangle(20.0 * width / 100, 91.5 * height / 100,
+        20.0 * width / 100, 94.5 * height / 100,
+        21.0 * width / 100, 93 * height / 100);
+    textAlign(CENTER);
+    textSize(9);
+    noStroke();
+    fill(colorPanelGray);
+    text("BASIC RHYTHM",
+        15 * width / 100,
+        93.5 * height / 100);
+
+    // text "INTRO/FILL IN"
+    noStroke();
+    rectMode(CENTER);
+    fill(colorBackground);
+    rect(91 * width / 100,
+        93 * height / 100,
+        70,
+        20);
+    // arrow pointing left
+    rect(88 * width / 100,
+        93 * height / 100,
+        15,
+        7);
+    // triangle(upper right, lower right, left)
+    triangle(87.5 * width / 100, 91.5 * height / 100,
+        87.5 * width / 100, 94.5 * height / 100,
+        86.5 * width / 100, 93 * height / 100);
+    textAlign(CENTER);
+    textSize(9);
+    noStroke();
+    fill(colorPanelGray);
+    text("INTRO/FILL IN",
+        91.0 * width / 100,
+        93.5 * height / 100);
     pop();
 }
 
