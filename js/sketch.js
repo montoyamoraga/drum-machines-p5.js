@@ -136,12 +136,19 @@ function drawLettersRed() {
     push();
     fill(255, 0, 0);
     // "Roland" - red letters
-    textSize(30);
-    text("Roland", 70 * width / 100, 12 * height / 100);
+    textSize(37);
+    noStroke();
+    textAlign(LEFT);
+    text("Roland",
+        74 * width / 100,
+        13 * height / 100);
     // "Rhythm Composer TR-808" - red letters
     textSize(20);
-    text("Rhythm Composer   TR-808", 70 * width / 100, 55 * height / 100);
-    // red line under 
+    textAlign(CENTER);
+    text("Rhythm Composer   TR-808",
+        70 * width / 100,
+        55 * height / 100);
+    // red line underneath
     stroke(255, 0, 0);
     strokeWeight(4);
     line(31 * width / 100,
