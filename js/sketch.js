@@ -60,39 +60,22 @@ let colorButtonYellow;
 
 
 function setup() {
-
     createCanvas(widthInstrument, heightInstrument);
-
     setupInitialSettings();
-
     setupColors();
-
     drawMainPanel();
-
     drawLettersRed();
-
     drawLettersWhite();
-
     drawPanelLines();
-
     drawInstrumentKnobs();
-
     drawInstrumentSwitches();
-
     drawInstrumentLabels();
-
     drawSequencerPanel();
-
     drawSequencerSteps();
-
     drawKnobMasterVolume();
-
     drawKnobTempo();
-
     drawButtonStartStop();
-
     drawButtonTap();
-
 }
 
 function draw() {
