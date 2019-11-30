@@ -453,84 +453,89 @@ function drawSequencerLengths() {
     fill(colorPanelGray);
     noStroke();
     rectMode(CORNER);
+    let sequencerLengthInitialX = 28.5 * width / 100;
+    let sequencerLengthInitialY = 67.0 * height / 100;
+    let sequencerLengthDeltaY = 3.5 * height / 100;
+    let sequencerLengthHeight = 2.5 * height / 100;
+    let sequencerLengthSpacing = 2.5 * height / 100;
     // row prescale 1 -  3 + 3 + 3 + 3 + 3 + 1
-    rect(28.5 * width / 100,
-        69.0 * height / 100,
+    rect(sequencerLengthInitialX,
+        sequencerLengthInitialY,
         10.5 * width / 100,
-        2.0 * height / 100,
+        sequencerLengthHeight,
         instrumentLabelRadius);
     rect(39.5 * width / 100,
-        69.0 * height / 100,
+        sequencerLengthInitialY,
         10.5 * width / 100,
-        2.0 * height / 100,
+        sequencerLengthHeight,
         instrumentLabelRadius);
     rect(50.5 * width / 100,
-        69.0 * height / 100,
+        sequencerLengthInitialY,
         10.5 * width / 100,
-        2.0 * height / 100,
+        sequencerLengthHeight,
         instrumentLabelRadius);
     rect(61.5 * width / 100,
-        69.0 * height / 100,
+        sequencerLengthInitialY,
         10.5 * width / 100,
-        2.0 * height / 100,
+        sequencerLengthHeight,
         instrumentLabelRadius);
     rect(72.5 * width / 100,
-        69.0 * height / 100,
+        sequencerLengthInitialY,
         10.5 * width / 100,
-        2.0 * height / 100,
+        sequencerLengthHeight,
         instrumentLabelRadius);
     rect(83.5 * width / 100,
-        69.0 * height / 100,
+        sequencerLengthInitialY,
         3.5 * width / 100,
-        2.0 * height / 100,
+        sequencerLengthHeight,
         instrumentLabelRadius);
     // row prescale 2 - 6 + 6 + 4
     rect(28.5 * width / 100,
-        72.0 * height / 100,
+        sequencerLengthInitialY + 1 * sequencerLengthDeltaY,
         21.5 * width / 100,
-        2.0 * height / 100,
+        sequencerLengthHeight,
         instrumentLabelRadius);
     rect(50.5 * width / 100,
-        72.0 * height / 100,
+        sequencerLengthInitialY + 1 * sequencerLengthDeltaY,
         21.5 * width / 100,
-        2.0 * height / 100,
+        sequencerLengthHeight,
         instrumentLabelRadius);
     rect(73.5 * width / 100,
-        72.0 * height / 100,
+        sequencerLengthInitialY + 1 * sequencerLengthDeltaY,
         13.5 * width / 100,
-        2.0 * height / 100,
+        sequencerLengthHeight,
         instrumentLabelRadius);
     // row prescale 3 - 4 + 4 + 4 + 4
     rect(28.5 * width / 100,
-        75.0 * height / 100,
+        sequencerLengthInitialY + 2 * sequencerLengthDeltaY,
         13.5 * width / 100,
-        2.0 * height / 100,
+        sequencerLengthHeight,
         instrumentLabelRadius);
     rect(43.5 * width / 100,
-        75.0 * height / 100,
+        sequencerLengthInitialY + 2 * sequencerLengthDeltaY,
         13.5 * width / 100,
-        2.0 * height / 100,
+        sequencerLengthHeight,
         instrumentLabelRadius);
     rect(58.5 * width / 100,
-        75.0 * height / 100,
+        sequencerLengthInitialY + 2 * sequencerLengthDeltaY,
         13.5 * width / 100,
-        2.0 * height / 100,
+        sequencerLengthHeight,
         instrumentLabelRadius);
     rect(73.5 * width / 100,
-        75.0 * height / 100,
+        sequencerLengthInitialY + 2 * sequencerLengthDeltaY,
         13.5 * width / 100,
-        2.0 * height / 100,
+        sequencerLengthHeight,
         instrumentLabelRadius);
     // row prescale 4 - 8 + 8
     rect(28.5 * width / 100,
-        78.0 * height / 100,
+        sequencerLengthInitialY + 3 * sequencerLengthDeltaY,
         28.5 * width / 100,
-        2.0 * height / 100,
+        sequencerLengthHeight,
         instrumentLabelRadius);
     rect(58.5 * width / 100,
-        78.0 * height / 100,
+        sequencerLengthInitialY + 3 * sequencerLengthDeltaY,
         28.5 * width / 100,
-        2.0 * height / 100,
+        sequencerLengthHeight,
         instrumentLabelRadius);
     pop();
 }
