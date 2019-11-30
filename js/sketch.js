@@ -21,6 +21,13 @@ const buttonStartStopHeight = 50;
 const buttonTapWidth = 45;
 const buttonTapHeight = 45;
 
+// TODO: extend to all drum voices
+let stepsBassDrum = [true, false, false, false,
+    true, false, false, false,
+    true, false, false, false,
+    true, false, false, false
+];
+
 const instrumentNamesShort = ["AC", "BD", "SD", "LT", "MT", "HT", "RS", "CP",
     "CB", "CY", "OH", "CH", "LC", "MC", "HC", "CL", "MA"
 ];
