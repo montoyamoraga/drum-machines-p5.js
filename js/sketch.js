@@ -32,6 +32,12 @@ let colorPanelGray;
 let colorKnobRed;
 let colorKnobWhite;
 
+const knobsRows = [
+    ["LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL"],
+    ["-", "TONE", "TONE", "TUNING", "TUNING", "TUNING", "-", "-", "-", "TONE", "-", "-"],
+    ["-", "DECAY", "SNAPPY", "SWITCH", "SWITCH", "SWITCH", "SWITCH", "SWITCH", "-", "DECAY", "DECAY", "-"]
+];
+
 function setup() {
 
     createCanvas(widthLarge, heightLarge);
