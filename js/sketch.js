@@ -42,25 +42,12 @@ function setup() {
 
     createCanvas(widthLarge, heightLarge);
 
-    // initial settings
-    rectMode(CORNER);
-    ellipseMode(CENTER);
-    textAlign(CENTER);
+    setupInitialSettings();
 
-    // define colors
-    colorBackground = color(15, 15, 15);
-    colorStepRed = color(220, 20, 0);
-    colorStepOrange = color(240, 120, 0);
-    colorStepYellow = color(220, 220, 0);
-    colorStepWhite = color(230, 230, 120);
-    colorPanelGray = color(130, 130, 130);
-    colorKnobRed = color(230, 80, 0);
-    colorKnobWhite = color(220, 220, 220);
-    colorKnobBlack = color(30, 30, 30);
+    setupColors();
 
     // black square for instrument
-    fill(colorBackground);
-    rect(0, 0, width, height);
+    drawMainPanel();
 
     // level knobs
     push();
@@ -93,6 +80,31 @@ function setup() {
 
 function draw() {
 
+}
+
+function setupInitialSettings() {
+    rectMode(CORNER);
+    ellipseMode(CENTER);
+    textAlign(CENTER);
+}
+
+function setupColors() {
+    colorBackground = color(15, 15, 15);
+    colorStepRed = color(220, 20, 0);
+    colorStepOrange = color(240, 120, 0);
+    colorStepYellow = color(220, 220, 0);
+    colorStepWhite = color(230, 230, 120);
+    colorPanelGray = color(130, 130, 130);
+    colorKnobRed = color(230, 80, 0);
+    colorKnobWhite = color(220, 220, 220);
+    colorKnobBlack = color(30, 30, 30);
+}
+
+function drawMainPanel() {
+    push()
+    fill(colorBackground);
+    rect(0, 0, width, height);
+    pop();
 }
 
 function drawPanelLines() {
