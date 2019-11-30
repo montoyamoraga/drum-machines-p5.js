@@ -451,7 +451,15 @@ function drawSequencerSteps() {
         text(i + 1,
             (30 + 3.7 * i) * width / 100,
             82 * height / 100);
+        // lights off
+        ellipseMode(CENTER);
+        fill(colorPanelGray);
+        ellipse((30 + 3.7 * i) * width / 100,
+            84.0 * height / 100,
+            10,
+            10);
     }
+
     pop();
 }
 
