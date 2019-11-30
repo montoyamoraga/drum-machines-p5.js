@@ -13,12 +13,23 @@ const heightInstrument = 720;
 const instrumentKnobsDiameter = 18;
 const instrumentSwitchWidth = 20;
 const instrumentSwitchHeight = 30;
+const instrumentLabelWidth = 55;
+const instrumentLabelHeight = 20;
+const instrumentLabelRadius = 4;
 
 const instrumentNamesShort = ["AC", "BD", "SD", "LT", "MT", "HT", "RS", "CP",
     "CB", "CY", "OH", "CH", "LC", "MC", "HC", "CL", "MA"
 ];
-const instrumentNamesLong = ["ACcent", "BassDrum", "SnareDrum", "LowTom", "MidTom", "HiTom", "RimShot", "handClaP",
-    "CowBell", "CYmbal", "OpenHihat", "ClsdHihat", "LowConga", "MidConga", "HiConga", "CLaves", "MAracas"
+
+const instrumentNamesRows = [
+    ["-", "-", "-", "LowConga", "MidConga", "HiConga", "CLaves", "MAracas", "-", "-", "-", "-"],
+    ["ACcent", "BassDrum", "SnareDrum", "LowTom", "MidTom", "HiTom", "RimShot", "handClaP", "CowBell", "CYmbal", "OpenHihat", "ClsdHihat"]
+];
+
+const instrumentKnobsRows = [
+    ["LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL"],
+    ["-", "TONE", "TONE", "TUNING", "TUNING", "TUNING", "-", "-", "-", "TONE", "-", "-"],
+    ["-", "DECAY", "SNAPPY", "SWITCH", "SWITCH", "SWITCH", "SWITCH", "SWITCH", "-", "DECAY", "DECAY", "-"]
 ];
 
 // color constants
@@ -30,14 +41,10 @@ let colorStepWhite;
 let colorTextRed;
 let colorTextBlack;
 let colorPanelGray;
+let colorPanelYellow;
 let colorKnobRed;
 let colorKnobWhite;
 
-const instrumentKnobsRows = [
-    ["LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL", "LEVEL"],
-    ["-", "TONE", "TONE", "TUNING", "TUNING", "TUNING", "-", "-", "-", "TONE", "-", "-"],
-    ["-", "DECAY", "SNAPPY", "SWITCH", "SWITCH", "SWITCH", "SWITCH", "SWITCH", "-", "DECAY", "DECAY", "-"]
-];
 
 function setup() {
 
@@ -55,6 +62,12 @@ function setup() {
 
     drawPanelLines();
 
+    drawInstrumentKnobs();
+
+    drawInstrumentSwitches();
+
+    drawInstrumentLabels();
+
     drawSequencerPanel();
 
     drawSequencerSteps();
@@ -63,9 +76,7 @@ function setup() {
 
     drawKnobTempo();
 
-    drawInstrumentKnobs();
 
-    drawInstrumentSwitches();
 
 }
 
@@ -77,6 +88,7 @@ function setupInitialSettings() {
     rectMode(CORNER);
     ellipseMode(CENTER);
     textAlign(CENTER);
+    smooth();
 }
 
 function setupColors() {
@@ -85,7 +97,10 @@ function setupColors() {
     colorStepOrange = color(240, 120, 0);
     colorStepYellow = color(220, 220, 0);
     colorStepWhite = color(230, 230, 120);
+    colorTextRed = color(230, 50, 0);
+    colorTextBlack = color(0, 0, 0);
     colorPanelGray = color(130, 130, 130);
+    colorPanelYellow = color(220, 220, 150);
     colorKnobRed = color(230, 80, 0);
     colorKnobWhite = color(220, 220, 220);
     colorKnobBlack = color(30, 30, 30);
@@ -132,9 +147,110 @@ function drawPanelLines() {
     pop();
 }
 
+function drawInstrumentKnobs() {
+    // level knobs
+    push();
+    // 0th row - red "level" knobs
+    for (let i = 0; i < instrumentKnobsRows[0].length; i++) {
+        if (instrumentKnobsRows[0][i] != "-" && instrumentKnobsRows[0][i] != "SWITCH") {
+            fill(colorKnobRed);
+            ellipse((30 + (i + 0.5) * 65 / 12) * width / 100,
+                25 * height / 100,
+                instrumentKnobsDiameter,
+                instrumentKnobsDiameter);
+            // white text
+            fill(255, 255, 255);
+            textSize(8);
+            text(instrumentKnobsRows[0][i],
+                (30 + (i + 0.5) * 65 / 12) * width / 100,
+                23 * height / 100);
+        }
+    }
+
+    // 1th row - white "tone" and "tuning" knobs
+    for (let i = 0; i < instrumentKnobsRows[1].length; i++) {
+        if (instrumentKnobsRows[1][i] != "-" && instrumentKnobsRows[1][i] != "SWITCH") {
+            fill(colorKnobWhite);
+            ellipse((30 + (i + 0.5) * 65 / 12) * width / 100,
+                32 * height / 100,
+                instrumentKnobsDiameter,
+                instrumentKnobsDiameter);
+            // white text
+            fill(255, 255, 255);
+            textSize(8);
+            text(instrumentKnobsRows[1][i],
+                (30 + (i + 0.5) * 65 / 12) * width / 100,
+                30 * height / 100);
+        }
+    }
+
+    // 2th row - white "decay" and "snappy" knobs
+    for (let i = 0; i < instrumentKnobsRows[2].length; i++) {
+        if (instrumentKnobsRows[2][i] != "-" && instrumentKnobsRows[2][i] != "SWITCH") {
+            fill(colorKnobWhite);
+            ellipse((30 + (i + 0.5) * 65 / 12) * width / 100,
+                39 * height / 100,
+                instrumentKnobsDiameter,
+                instrumentKnobsDiameter);
+            // white text
+            fill(255, 255, 255);
+            textSize(8);
+            text(instrumentKnobsRows[2][i],
+                (30 + (i + 0.5) * 65 / 12) * width / 100,
+                37 * height / 100);
+        }
+    }
+    pop();
+}
+
+function drawInstrumentSwitches() {
+    push();
+    rectMode(CENTER);
+    fill(colorKnobBlack);
+    noStroke();
+    // 2th row - black switches for selection of instruments
+    for (let i = 0; i < instrumentKnobsRows[2].length; i++) {
+        if (instrumentKnobsRows[2][i] == "SWITCH") {
+            rect((30 + (i + 0.5) * 65 / 12) * width / 100,
+                44 * height / 100,
+                instrumentSwitchWidth,
+                instrumentSwitchHeight);
+        }
+    }
+    pop();
+}
+
+function drawInstrumentLabels() {
+    push();
+    for (let row = 0; row < instrumentNamesRows.length; row++) {
+        for (let i = 0; i < instrumentNamesRows[row].length; i++) {
+            if (instrumentNamesRows[row][i] != "-") {
+                fill(colorPanelYellow);
+                strokeJoin(ROUND);
+                noStroke();
+                rectMode(CENTER);
+                rect((30 + (i + 0.5) * 65 / 12) * width / 100,
+                    (39 + (row * 10)) * height / 100,
+                    instrumentLabelWidth,
+                    instrumentLabelHeight,
+                    instrumentLabelRadius);
+                // stroke(colorTextBlack);
+                textSize(10);
+                textAlign(CENTER);
+                noStroke();
+                fill(colorTextBlack);
+                text(instrumentNamesRows[row][i],
+                    (30 + (i + 0.5) * 65 / 12) * width / 100,
+                    (39.5 + (row * 10)) * height / 100);
+            }
+        }
+    }
+    pop();
+}
+
 function drawLettersRed() {
     push();
-    fill(255, 0, 0);
+    fill(colorTextRed);
     // "Roland" - red letters
     textSize(37);
     noStroke();
@@ -297,81 +413,6 @@ function drawKnobTempo() {
         text(i + 1,
             10 * width / 100 + 57 * cos(0.75 * PI + i * TWO_PI / 12),
             56 * height / 100 + 57 * sin(0.75 * PI + i * TWO_PI / 12));
-    }
-    pop();
-}
-
-function drawInstrumentKnobs() {
-    // level knobs
-    push();
-    // 0th row - red "level" knobs
-    for (let i = 0; i < instrumentKnobsRows[0].length; i++) {
-        if (instrumentKnobsRows[0][i] != "-" && instrumentKnobsRows[0][i] != "SWITCH") {
-            fill(colorKnobRed);
-            ellipse((30 + (i + 0.5) * 65 / 12) * width / 100,
-                25 * height / 100,
-                instrumentKnobsDiameter,
-                instrumentKnobsDiameter);
-            // white text
-            fill(255, 255, 255);
-            textSize(8);
-            text(instrumentKnobsRows[0][i],
-                (30 + (i + 0.5) * 65 / 12) * width / 100,
-                23 * height / 100);
-        }
-    }
-
-    // 1th row - white "tone" and "tuning" knobs
-    for (let i = 0; i < instrumentKnobsRows[1].length; i++) {
-        if (instrumentKnobsRows[1][i] != "-" && instrumentKnobsRows[1][i] != "SWITCH") {
-            fill(colorKnobWhite);
-            ellipse((30 + (i + 0.5) * 65 / 12) * width / 100,
-                32 * height / 100,
-                instrumentKnobsDiameter,
-                instrumentKnobsDiameter);
-            // white text
-            fill(255, 255, 255);
-            textSize(8);
-            text(instrumentKnobsRows[1][i],
-                (30 + (i + 0.5) * 65 / 12) * width / 100,
-                30 * height / 100);
-        }
-    }
-
-    // 2th row - white "decay" and "snappy" knobs
-    for (let i = 0; i < instrumentKnobsRows[2].length; i++) {
-        if (instrumentKnobsRows[2][i] != "-" && instrumentKnobsRows[2][i] != "SWITCH") {
-            fill(colorKnobWhite);
-            ellipse((30 + (i + 0.5) * 65 / 12) * width / 100,
-                39 * height / 100,
-                instrumentKnobsDiameter,
-                instrumentKnobsDiameter);
-            // white text
-            fill(255, 255, 255);
-            textSize(8);
-            text(instrumentKnobsRows[2][i],
-                (30 + (i + 0.5) * 65 / 12) * width / 100,
-                37 * height / 100);
-        }
-    }
-
-
-    pop();
-}
-
-function drawInstrumentSwitches() {
-    push();
-    rectMode(CENTER);
-    fill(colorKnobBlack);
-    noStroke();
-    // 2th row - black switches for selection of instruments
-    for (let i = 0; i < instrumentKnobsRows[2].length; i++) {
-        if (instrumentKnobsRows[2][i] == "SWITCH") {
-            rect((30 + (i + 0.5) * 65 / 12) * width / 100,
-                45 * height / 100,
-                instrumentSwitchWidth,
-                instrumentSwitchHeight);
-        }
     }
     pop();
 }
