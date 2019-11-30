@@ -72,6 +72,7 @@ function setup() {
     drawInstrumentLabels();
     drawSequencerPanel();
     drawSequencerSteps();
+    drawSequencerLengths();
     drawKnobMasterVolume();
     drawKnobTempo();
     drawButtonStartStop();
@@ -443,6 +444,94 @@ function drawSequencerSteps() {
             10);
     }
 
+    pop();
+}
+
+// HEREIAM
+function drawSequencerLengths() {
+    push();
+    fill(colorPanelGray);
+    noStroke();
+    rectMode(CORNER);
+    // row prescale 1 -  3 + 3 + 3 + 3 + 3 + 1
+    rect(28.5 * width / 100,
+        69.0 * height / 100,
+        10.5 * width / 100,
+        2.0 * height / 100,
+        instrumentLabelRadius);
+    rect(39.5 * width / 100,
+        69.0 * height / 100,
+        10.5 * width / 100,
+        2.0 * height / 100,
+        instrumentLabelRadius);
+    rect(50.5 * width / 100,
+        69.0 * height / 100,
+        10.5 * width / 100,
+        2.0 * height / 100,
+        instrumentLabelRadius);
+    rect(61.5 * width / 100,
+        69.0 * height / 100,
+        10.5 * width / 100,
+        2.0 * height / 100,
+        instrumentLabelRadius);
+    rect(72.5 * width / 100,
+        69.0 * height / 100,
+        10.5 * width / 100,
+        2.0 * height / 100,
+        instrumentLabelRadius);
+    rect(83.5 * width / 100,
+        69.0 * height / 100,
+        3.5 * width / 100,
+        2.0 * height / 100,
+        instrumentLabelRadius);
+    // row prescale 2 - 6 + 6 + 4
+    rect(28.5 * width / 100,
+        72.0 * height / 100,
+        21.5 * width / 100,
+        2.0 * height / 100,
+        instrumentLabelRadius);
+    rect(50.5 * width / 100,
+        72.0 * height / 100,
+        21.5 * width / 100,
+        2.0 * height / 100,
+        instrumentLabelRadius);
+    rect(73.5 * width / 100,
+        72.0 * height / 100,
+        13.5 * width / 100,
+        2.0 * height / 100,
+        instrumentLabelRadius);
+    // row prescale 3 - 4 + 4 + 4 + 4
+    rect(28.5 * width / 100,
+        75.0 * height / 100,
+        13.5 * width / 100,
+        2.0 * height / 100,
+        instrumentLabelRadius);
+    rect(43.5 * width / 100,
+        75.0 * height / 100,
+        13.5 * width / 100,
+        2.0 * height / 100,
+        instrumentLabelRadius);
+    rect(58.5 * width / 100,
+        75.0 * height / 100,
+        13.5 * width / 100,
+        2.0 * height / 100,
+        instrumentLabelRadius);
+    rect(73.5 * width / 100,
+        75.0 * height / 100,
+        13.5 * width / 100,
+        2.0 * height / 100,
+        instrumentLabelRadius);
+    // row prescale 4 - 8 + 8
+    rect(28.5 * width / 100,
+        78.0 * height / 100,
+        28.5 * width / 100,
+        2.0 * height / 100,
+        instrumentLabelRadius);
+    rect(58.5 * width / 100,
+        78.0 * height / 100,
+        28.5 * width / 100,
+        2.0 * height / 100,
+        instrumentLabelRadius);
     pop();
 }
 
