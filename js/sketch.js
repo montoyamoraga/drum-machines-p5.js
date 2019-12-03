@@ -6,6 +6,13 @@
 let tempo = 90;
 let stepCurrent = 0;
 const stepNumber = 16;
+let msBetweenSteps = 200;
+
+function updateCurrentStep() {
+    stepCurrent = (stepCurrent + 1) % stepNumber;
+}
+
+window.setInterval(updateCurrentStep, msBetweenSteps);
 
 // drawing variables and constants
 const widthInstrument = 1200;
@@ -57,7 +64,7 @@ let colorKnobRed;
 let colorKnobWhite;
 let colorKnobBlack;
 let colorButtonYellow;
-
+let colorLedOn;
 
 function setup() {
     createCanvas(widthInstrument, heightInstrument);
@@ -72,6 +79,7 @@ function setup() {
     drawInstrumentLabels();
     drawSequencerPanel();
     drawSequencerSteps();
+    drawSequencerLights();
     drawSequencerLengths();
     drawKnobMasterVolume();
     drawKnobTempo();
@@ -80,7 +88,7 @@ function setup() {
 }
 
 function draw() {
-
+    drawSequencerLights();
 }
 
 function setupInitialSettings() {
@@ -104,6 +112,7 @@ function setupColors() {
     colorKnobWhite = color(220, 220, 220);
     colorKnobBlack = color(30, 30, 30);
     colorButtonYellow = color(255, 255, 70);
+    colorLedOn = color(255, 0, 0);
 }
 
 function drawMainPanel() {
@@ -435,15 +444,25 @@ function drawSequencerSteps() {
         text(i + 1,
             (30 + 3.7 * i) * width / 100,
             82 * height / 100);
-        // lights off
-        ellipseMode(CENTER);
-        fill(colorPanelGray);
+    }
+    pop();
+}
+
+function drawSequencerLights() {
+    push();
+    ellipseMode(CENTER);
+    noStroke();
+    for (let i = 0; i < stepNumber; i++) {
+        if (i == stepCurrent) {
+            fill(colorLedOn);
+        } else {
+            fill(colorPanelGray);
+        }
         ellipse((30 + 3.7 * i) * width / 100,
             84.0 * height / 100,
             10,
             10);
     }
-
     pop();
 }
 
