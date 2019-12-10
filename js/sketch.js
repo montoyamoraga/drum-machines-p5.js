@@ -1,6 +1,9 @@
 // recreation of a Roland TR-808 using p5.js
 // by aaron montoya-moraga
-// november 2019
+// project started november 2019
+
+// version number
+const versionNumber = "0.0.1";
 
 // sequencer variables
 let tempo = 90;
