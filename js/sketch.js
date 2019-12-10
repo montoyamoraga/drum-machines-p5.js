@@ -15,6 +15,35 @@ function updateCurrentStep() {
     stepCurrent = (stepCurrent + 1) % stepNumber;
 }
 
+// MIDI variables
+let midiMinValue = 0;
+let midiMaxValue = 127;
+
+// normalized values
+let normalizedMinValue = 0.0;
+let normalizedMaxValue = 1.0;
+
+// variables for GUI elements
+let guiValueAccentLevel = 0.0;
+
+function convertValueToRadians(value) {
+    return map(value, 0.0, 1.0, 0.0, 2 * PI);
+}
+
+function convertRadiansToValue(value) {
+    return map(value % (2 * PI), 0.0, 2 * PI, 0.0, 1.0);
+}
+
+function convertValueToMidi(value) {
+    return int(map(value, 0.0, 1.0, 0, 127));
+}
+
+function convertMidiToValue(value) {
+    return map(value, 0, 127, 0.0, 1.0);
+}
+
+
+
 window.setInterval(updateCurrentStep, msBetweenSteps);
 
 // drawing variables and constants
@@ -30,13 +59,112 @@ const buttonStartStopWidth = 75;
 const buttonStartStopHeight = 50;
 const buttonTapWidth = 45;
 const buttonTapHeight = 45;
+const draggingHeight = 720;
 
-// TODO: extend to all drum voices
-let stepsBassDrum = [true, false, false, false,
+// mouse variables
+let clickedX = 0;
+let clickedY = 0;
+let releasedX = 0;
+let releasedY = 0;
+
+const stepsAC = [
+    true, false, false, false,
+    false, false, false, false,
+    false, false, false, false,
+    false, false, false, false
+];
+
+const stepsBD = [
+    true, false, false, false,
     true, false, false, false,
     true, false, false, false,
     true, false, false, false
 ];
+
+const stepsSD = [
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false
+];
+
+const stepsLT = [
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false
+];
+
+const stepsMT = [
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false
+];
+
+const stepsHT = [
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false
+];
+
+const stepsRS = [
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false
+];
+
+const stepsCP = [
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false
+];
+
+const stepsCB = [
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false,
+    false, false, true, false
+];
+
+const stepsCY = [
+    false, false, false, true,
+    false, false, false, true,
+    false, false, false, true,
+    false, false, false, true
+];
+
+const stepsOH = [
+    false, true, false, false,
+    false, true, false, false,
+    false, true, false, false,
+    false, true, false, false
+];
+
+const stepsCH = [
+    true, false, true, false,
+    true, false, true, false,
+    true, false, true, false,
+    true, false, true, false
+];
+
+const stepsSequencer = [
+    stepsAC, stepsBD, stepsSD, stepsLT, stepsMT, stepsHT,
+    stepsRS, stepsCP, stepsCB, stepsCY, stepsOH, stepsCH
+];
+
+// empty arrays
+const stepsAllTrue = [];
+const stepsAllFalse = [];
+
+// populate these arrays
+for (let i = 0; i < stepNumber; i++) {
+    stepsAllTrue.push(true);
+    stepsAllFalse.push(false);
+}
 
 const instrumentNamesShort = ["AC", "BD", "SD", "LT", "MT", "HT", "RS", "CP",
     "CB", "CY", "OH", "CH", "LC", "MC", "HC", "CL", "MA"
@@ -66,8 +194,13 @@ let colorPanelYellow;
 let colorKnobRed;
 let colorKnobWhite;
 let colorKnobBlack;
+let colorKnobArrowOrange;
 let colorButtonYellow;
 let colorLedOn;
+let colorLedTrue;
+
+// variables of gui selection
+let currentInstrumentKnobArrowPosition = 0;
 
 function setup() {
     createCanvas(widthInstrument, heightInstrument);
@@ -86,12 +219,52 @@ function setup() {
     drawSequencerLengths();
     drawKnobMasterVolume();
     drawKnobTempo();
+    drawKnobInstrumentSelect();
+    drawKnobInstrumentSelectArrow();
     drawButtonStartStop();
     drawButtonTap();
 }
 
 function draw() {
+    drawSequencerCurrentSteps();
     drawSequencerLights();
+    drawKnobInstrumentSelect();
+    drawKnobInstrumentSelectArrow();
+    drawInstrumentKnobs();
+    drawKnobAccentLevel();
+}
+
+// HEREIAM
+function drawKnobAccentLevel() {
+    push();
+    stroke(colorKnobArrowGray);
+    strokeWeight(2);
+    angleMode(RADIANS);
+    line(
+        (30 + (0 + 0.5) * 65 / 12) * width / 100,
+        25 * height / 100,
+        (30 + (0 + 0.5) * 65 / 12) * width / 100 + 0.4 * instrumentKnobsDiameter * cos((3 / 4) * PI + guiValueAccentLevel * ((3 / 2) * PI)),
+        25 * height / 100 + 0.4 * instrumentKnobsDiameter * sin((3 / 4) * PI + guiValueAccentLevel * ((3 / 2) * PI))
+    );
+    pop();
+}
+
+function drawSequencerCurrentSteps() {
+    push();
+    ellipseMode(CENTER);
+    noStroke();
+    for (let i = 0; i < stepNumber; i++) {
+        if (stepsSequencer[currentInstrumentKnobArrowPosition][i] == true) {
+            fill(colorLedTrue);
+        } else {
+            fill(colorPanelGray);
+        }
+        ellipse((30 + 3.7 * i) * width / 100,
+            84.0 * height / 100,
+            10,
+            10);
+    }
+    pop();
 }
 
 function setupInitialSettings() {
@@ -114,8 +287,11 @@ function setupColors() {
     colorKnobRed = color(230, 80, 0);
     colorKnobWhite = color(220, 220, 220);
     colorKnobBlack = color(30, 30, 30);
+    colorKnobArrowOrange = color(230, 50, 0);
+    colorKnobArrowGray = color(130, 130, 130);
     colorButtonYellow = color(255, 255, 70);
     colorLedOn = color(255, 0, 0);
+    colorLedTrue = color(0, 255, 0);
 }
 
 function drawMainPanel() {
@@ -455,21 +631,18 @@ function drawSequencerLights() {
     push();
     ellipseMode(CENTER);
     noStroke();
+    fill(colorLedOn);
     for (let i = 0; i < stepNumber; i++) {
         if (i == stepCurrent) {
-            fill(colorLedOn);
-        } else {
-            fill(colorPanelGray);
+            ellipse((30 + 3.7 * i) * width / 100,
+                84.0 * height / 100,
+                10,
+                10);
         }
-        ellipse((30 + 3.7 * i) * width / 100,
-            84.0 * height / 100,
-            10,
-            10);
     }
     pop();
 }
 
-// HEREIAM
 function drawSequencerLengths() {
     push();
     fill(colorPanelGray);
@@ -620,6 +793,52 @@ function drawKnobTempo() {
     pop();
 }
 
+function drawKnobInstrumentSelect() {
+    push();
+    ellipseMode(CENTER);
+    noStroke();
+    fill(colorKnobBlack);
+    ellipse(
+        25 * width / 100,
+        25 * height / 100,
+        50,
+        50
+    );
+    textSize(6);
+    textAlign(CENTER);
+    angleMode(RADIANS);
+    rectMode(CENTER);
+    for (let i = 0; i < 12; i++) {
+        fill(colorPanelYellow);
+        let radius = 35;
+        rect(
+            25 * width / 100 + radius * cos(0.75 * PI + i * TWO_PI / 15),
+            25 * height / 100 + radius * sin(0.75 * PI + i * TWO_PI / 15),
+            10,
+            10
+        );
+        fill(colorPanelGray);
+        text(
+            instrumentNamesShort[i],
+            25 * width / 100 + radius * cos(0.75 * PI + i * TWO_PI / 15),
+            25 * height / 100 + radius * sin(0.75 * PI + i * TWO_PI / 15));
+    }
+    pop();
+}
+
+function drawKnobInstrumentSelectArrow() {
+    push();
+    stroke(colorKnobArrowOrange);
+    strokeWeight(2);
+    line(
+        25 * width / 100,
+        25 * height / 100,
+        25 * width / 100 + 20 * cos(0.75 * PI + currentInstrumentKnobArrowPosition * TWO_PI / 15),
+        25 * height / 100 + 20 * sin(0.75 * PI + currentInstrumentKnobArrowPosition * TWO_PI / 15)
+    );
+    pop();
+}
+
 function drawButtonStartStop() {
     push();
     noStroke();
@@ -663,4 +882,67 @@ function drawButtonTap() {
         91.5 * width / 100,
         86.5 * height / 100);
     pop();
+}
+
+function mouseClicked() {
+    push();
+    rectMode(CENTER);
+    angleMode(RADIANS);
+    // check if click is in area of instrument selection
+    if (
+        dist(
+            mouseX,
+            mouseY,
+            25 * width / 100,
+            25 * height / 100
+        ) < 55) {
+        for (let i = 0; i < 12; i++) {
+            if (dist(
+                    mouseX,
+                    mouseY,
+                    25 * width / 100 + 40 * cos(0.75 * PI + i * TWO_PI / 15),
+                    25 * height / 100 + 40 * sin(0.75 * PI + i * TWO_PI / 15)
+                ) < 15) {
+                // change current arrow
+                currentInstrumentKnobArrowPosition = i;
+            }
+        }
+    }
+    // check if level of accent is being clicked
+    else if (
+        dist(
+            mouseX,
+            mouseY,
+            (30 + (0 + 0.5) * 65 / 12) * width / 100,
+            25 * height / 100) < instrumentKnobsDiameter) {
+        // HEREIAM
+        clickedX = mouseX;
+        clickedY = mouseY;
+        // draggingHeight
+        // guiValueAccentLevel = 1.0;
+    }
+    pop();
+}
+
+function mouseDragged() {
+    releasedX = mouseX;
+    releasedY = mouseY;
+    guiValueAccentLevel = dist(clickedX, clickedY, clickedX, releasedY);
+    guiValueAccentLevel = map(guiValueAccentLevel, 0.0, height, 0.0, 1.0);
+}
+
+function printAllVariables() {
+    console.log("TODO");
+}
+
+function printAllConstants() {
+    console.log("TODO");
+}
+
+function printAllPresets() {
+    console.log("TODO");
+}
+
+function printAll() {
+    console.log("TODO");
 }
