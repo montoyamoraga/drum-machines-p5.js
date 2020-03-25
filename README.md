@@ -24,6 +24,10 @@ These are the current drum machines being studied:
 These are the links for the online versions included on this repository so far:
 
 * [Roland TR-808](https://montoyamoraga.io/drum-machines-p5.js/roland-tr-808/)
+  * GUI: alpha version, needs finishing touches.
+  * User experience: : add interactivity, for desktop and mobile web.
+  * Sequencer: add logic for storing data.
+  * Sounds: no sounds yet.
 
 ## Constraints
 
