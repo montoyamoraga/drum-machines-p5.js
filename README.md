@@ -1,1 +1,7 @@
-# p5.js-808
+# drum-machines-p5.js
+
+## About
+
+## License
+
+MIT
