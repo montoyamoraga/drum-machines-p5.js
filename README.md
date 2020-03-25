@@ -13,7 +13,18 @@ drum-machines-p5.js is a project started in late 2019, and is done iteratively a
 
 ## Drum machines
 
-First experiments should focus on Roland 808, Roland 909, and Roland CR68.
+These are the current drum machines being studied:
+
+* [Roland CR-78](https://en.wikipedia.org/wiki/Roland_CR-78)
+* [Roland TR-808](https://en.wikipedia.org/wiki/Roland_TR-808)
+* [Roland TR-909](https://en.wikipedia.org/wiki/Roland_TR-909)
+
+## Live versions
+
+These are the links for the online versions included on this repository so far:
+
+* [Roland TR-808](./roland-tr-808)
+
 
 ## Constraints
 
