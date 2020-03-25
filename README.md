@@ -23,8 +23,7 @@ These are the current drum machines being studied:
 
 These are the links for the online versions included on this repository so far:
 
-* [Roland TR-808](./roland-tr-808)
-
+* [Roland TR-808](https://montoyamoraga.io/drum-machines-p5.js/roland-tr-808/)
 
 ## Constraints
 
